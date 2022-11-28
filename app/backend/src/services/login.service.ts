@@ -8,6 +8,7 @@ export default class LoginService {
   constructor(private _model: IUserModel) {}
   login = async ({ email, password }: ILogin): Promise<string> => {
     const data = await this._model.findOne({ where: { email } });
+
     if (!data) throw new HttpException(401, 'Incorrect email or password');
 
     const { dataValues: userFinded } = data;
