@@ -16,7 +16,7 @@ const { app } = new App();
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('Testing the team route', () => {
   let chaiHttpResponse: Response;
 
   before(async () => {

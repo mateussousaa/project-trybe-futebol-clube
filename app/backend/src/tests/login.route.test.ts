@@ -15,7 +15,7 @@ const { app } = new App();
 
 const { expect } = chai;
 
-describe('Testing the login controller', () => {
+describe('Testing the login route', () => {
   let chaiHttpResponse: Response;
 
   beforeEach(async () => {
