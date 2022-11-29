@@ -1,6 +1,6 @@
 import Team from '../database/models/Team';
 import Match from '../database/models/Match';
-import IMatchForCreation from '../interfaces/IMatch';
+import IMatchForCreation, { IMatchForUpdate } from '../interfaces/IMatch';
 import HttpException from '../utils/HttpException';
 
 export default class MatchService {
@@ -22,4 +22,13 @@ export default class MatchService {
   };
 
   finishMatch = async (id: number) => Match.update({ inProgress: false }, { where: { id } });
+
+  updateMatch = async ({ homeTeamGoals, awayTeamGoals }: IMatchForUpdate, id: number) => {
+    const match = await Match.findByPk(id);
+    if (!match) throw new HttpException(404, 'invalid id');
+
+    if (match.inProgress === true) {
+      Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    }
+  };
 }
