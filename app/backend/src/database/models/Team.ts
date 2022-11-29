@@ -30,10 +30,10 @@ Team.init({
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
-Match.belongsTo(Team, { foreignKey: 'id', as: 'home_team' });
-Match.belongsTo(Team, { foreignKey: 'id', as: 'away_team' });
+Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'teamHome' });
+Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'teamAway' });
 
-Team.hasMany(Match, { foreignKey: 'home_team', as: 'home_team' });
-Team.hasMany(Match, { foreignKey: 'away_team', as: 'away_team' });
+Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'teamHome' });
+Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'teamAway' });
 
 export default Team;
