@@ -1,6 +1,6 @@
 import Team from '../database/models/Team';
 import Match from '../database/models/Match';
-// import IMatchForCreation from '../interfaces/IMatch';
+import IMatchForCreation from '../interfaces/IMatch';
 
 export default class MatchService {
   getAllMatches = async () => Match.findAll({
@@ -10,5 +10,5 @@ export default class MatchService {
     ],
   });
 
-  // createMatch = async (match: IMatchForCreation) => Match.create({ ...match, inProgress: true });
+  createMatch = async (match: IMatchForCreation) => Match.create({ ...match, inProgress: true });
 }

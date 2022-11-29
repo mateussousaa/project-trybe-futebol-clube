@@ -15,14 +15,14 @@ export default class MatchController {
     return res.status(200).json(matches);
   };
 
-  // createMatch: RequestHandler = async (req, res) => {
-  //   const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
-  //   const match = await this._service.createMatch({
-  //     homeTeam,
-  //     awayTeam,
-  //     homeTeamGoals,
-  //     awayTeamGoals,
-  //   });
-  //   return res.status(201).json(match);
-  // };
+  createMatch: RequestHandler = async (req, res) => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
+    const match = await this._service.createMatch({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+    });
+    return res.status(201).json(match);
+  };
 }

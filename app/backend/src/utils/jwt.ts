@@ -22,7 +22,7 @@ const validateToken = (token: string) => {
     const data = jwt.verify(token, process.env.JWT_SECRET as string);
     return data;
   } catch (e) {
-    throw new HttpException(401, 'Invalid Token');
+    throw new HttpException(401, 'Token must be a valid token');
   }
 };
 
