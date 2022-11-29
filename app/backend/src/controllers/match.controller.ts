@@ -25,4 +25,10 @@ export default class MatchController {
     });
     return res.status(201).json(match);
   };
+
+  finishMatch: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+    await this._service.finishMatch(Number(id));
+    res.status(200).json({ message: 'Finished' });
+  };
 }

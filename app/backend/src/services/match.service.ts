@@ -11,4 +11,6 @@ export default class MatchService {
   });
 
   createMatch = async (match: IMatchForCreation) => Match.create({ ...match, inProgress: true });
+
+  finishMatch = async (id: number) => Match.update({ inProgress: false }, { where: { id } });
 }
