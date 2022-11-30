@@ -42,7 +42,7 @@ const mockedMatches = [
 		}
 	},
 	{
-		i: 4,
+		id: 4,
 		homeTeam: 3,
 		homeTeamGoals: 0,
 		awayTeam: 2,
