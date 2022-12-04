@@ -33,7 +33,7 @@ const calculateEfficiency = (points: number, matches: number) => {
   return parseFloat(efficiency.toFixed(2));
 };
 
-const fillTeamInfoFromMatches = (matches: IMatch[], team: ITeam) => {
+const homeTeamInfoFromMatches = (matches: IMatch[], team: ITeam) => {
   const teamInfo = createTeamInfo(team.teamName);
   const results: number[] = [];
   matches.forEach((match) => {
@@ -56,4 +56,27 @@ const fillTeamInfoFromMatches = (matches: IMatch[], team: ITeam) => {
   return teamInfo;
 };
 
-export { generatePoints, fillTeamInfoFromMatches };
+const awayTeamInfoFromMatches = (matches: IMatch[], team: ITeam) => {
+  const teamInfo = createTeamInfo(team.teamName);
+  const results: number[] = [];
+  matches.forEach((match) => {
+    if (match.awayTeam === team.id) {
+      const points = generatePoints(match.awayTeamGoals, match.homeTeamGoals);
+      results.push(points);
+      teamInfo.totalPoints += points;
+      teamInfo.totalGames += 1;
+
+      teamInfo.goalsFavor += match.awayTeamGoals;
+      teamInfo.goalsOwn += match.homeTeamGoals;
+    }
+  });
+  teamInfo.totalVictories = generateResults(results, 3);
+  teamInfo.goalsBalance = teamInfo.goalsFavor - teamInfo.goalsOwn;
+  teamInfo.totalDraws = generateResults(results, 1);
+  teamInfo.totalLosses = generateResults(results, 0);
+  teamInfo.efficiency = calculateEfficiency(teamInfo.totalPoints, results.length);
+
+  return teamInfo;
+};
+
+export { generatePoints, homeTeamInfoFromMatches, awayTeamInfoFromMatches };

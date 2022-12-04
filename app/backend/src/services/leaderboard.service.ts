@@ -2,18 +2,19 @@ import Team from '../database/models/Team';
 import Match from '../database/models/Match';
 import ITeamInfoToRank, { ITeam } from '../interfaces/ITeam';
 import { IMatch } from '../interfaces/IMatch';
-import { fillTeamInfoFromMatches } from '../utils/leaderboardUtils';
+import { homeTeamInfoFromMatches, awayTeamInfoFromMatches } from '../utils/leaderboardUtils';
+import ILeaderboardType from '../interfaces/ILeaderboardType';
 
 export default class LeaderboardService {
   private _rank: ITeamInfoToRank[] = [];
 
   constructor(private _model = new Match()) {}
 
-  getHomeTeamsRank = async () => {
+  getTeamsRank = async ({ type }: ILeaderboardType) => {
     const matches = await Match.findAll({ where: { inProgress: false } }) as IMatch[];
     const teams = await LeaderboardService.getAllTeams() as ITeam[];
 
-    const teamsInfo = teams.map((team) => LeaderboardService.fillRankByTeam(matches, team));
+    const teamsInfo = teams.map((team) => LeaderboardService.fillRankByTeam(matches, team, type));
     this._rank = LeaderboardService.sortRankByPoints(teamsInfo);
     return this._rank;
   };
@@ -23,9 +24,13 @@ export default class LeaderboardService {
     return teams;
   }
 
-  private static fillRankByTeam(matches: IMatch[], team: ITeam): ITeamInfoToRank {
-    const teamInfo = fillTeamInfoFromMatches(matches, team);
-    return teamInfo;
+  private static fillRankByTeam(matches: IMatch[], team: ITeam, type: string): ITeamInfoToRank {
+    if (type === 'home') {
+      return homeTeamInfoFromMatches(matches, team);
+    } if (type === 'away') {
+      return awayTeamInfoFromMatches(matches, team);
+    }
+    throw new Error('error');
   }
 
   private static sortRankByPoints(teamsInfo: ITeamInfoToRank[]) {
