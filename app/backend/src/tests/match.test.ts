@@ -8,7 +8,6 @@ import Match from '../database/models/Match';
 
 import { Response } from 'superagent';
 import mockedMatches, { createdMatch, matchForCreation, mockedMatchesInProgress } from './mocks/mockedMatches';
-import mockedToken from './mocks/mockedToken';
 
 chai.use(chaiHttp);
 
@@ -58,38 +57,6 @@ describe('Testing the match route', () => {
   
       expect(chaiHttpResponse.status).to.be.equal(200)
       expect(chaiHttpResponse.body).to.be.deep.equal(mockedMatchesInProgress)
-    });
-  })
-
-  describe('endpoint /matches [POST]', () => {
-    before(async () => {
-      sinon
-        .stub(Match, "create")
-        .resolves(createdMatch as any);
-      sinon
-        .stub(Match, "findByPk")
-        .onFirstCall()
-        .resolves(
-          { id: 16,    teamName: "São Paulo" } as any)
-        .onSecondCall()
-        .resolves(
-          { id: 1, teamName: "Avaí/Kindermann" } as any)
-    });
-  
-    after(()=>{
-      (Match.create as sinon.SinonStub).restore();
-      (Match.findByPk as sinon.SinonStub).restore();
-    })
-
-    it('should test the createMatch - endpoint /matches [POST]', async () => {
-      chaiHttpResponse = await chai
-         .request(app)
-         .post('/matches')
-         .send(matchForCreation)
-         .set({'authorization': mockedToken})
-  
-      expect(chaiHttpResponse.status).to.be.equal(201)
-      expect(chaiHttpResponse.body).to.be.deep.equal(createdMatch)
     });
   })
 
