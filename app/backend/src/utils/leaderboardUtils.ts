@@ -79,4 +79,4 @@ const awayTeamInfoFromMatches = (matches: IMatch[], team: ITeam) => {
   return teamInfo;
 };
 
-export { generatePoints, homeTeamInfoFromMatches, awayTeamInfoFromMatches };
+export { createTeamInfo, generatePoints, homeTeamInfoFromMatches, awayTeamInfoFromMatches };

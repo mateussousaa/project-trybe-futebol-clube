@@ -3,7 +3,7 @@ import HttpException from '../utils/HttpException';
 
 const validateCreateMatches: RequestHandler = async (req, res, next) => {
   const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
-  if (!homeTeam || !awayTeam || !homeTeamGoals || !awayTeamGoals) {
+  if (!homeTeam || !awayTeam || homeTeamGoals === undefined || awayTeamGoals === undefined) {
     throw new HttpException(400, 'invalid fields');
   }
 

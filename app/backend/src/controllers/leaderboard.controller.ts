@@ -13,4 +13,9 @@ export default class LeaderboardController {
     const matches = await this._service.getTeamsRank({ type: 'away' });
     res.status(200).json(matches);
   };
+
+  getTeamsRank: RequestHandler = async (req, res) => {
+    const matches = await this._service.getAllTeamsRank();
+    res.status(200).json(matches);
+  };
 }
