@@ -68,8 +68,6 @@ Execute o comando abaixo no diretório raíz do projeto para verificar a cobertu
 cd app/backend/ && npm install && npm run test:coverage
 ```
 
-Construí a cobertura de pouco mais de 99% das funções do código, porém no futuro pretendo atingir a cobertura da totalidade das linhas.
-
 ---
 
 ## 📚 Documentação (endpoints)
